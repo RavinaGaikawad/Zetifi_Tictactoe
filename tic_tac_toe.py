@@ -104,11 +104,11 @@ if __name__ == '__main__':
 
     for move in moves:
         print('Input', move)
-        result = obj.place_marker(move[2], move[0], move[1])
+        res = obj.place_marker(move[2], move[0], move[1])
         # print('Output', result)
-        if result == 4:
+        if res == 4:
             print('Naught Won!')
-        elif result == 3:
+        elif res == 3:
             print('Cross Won!')
         else:
             print('Draw')
