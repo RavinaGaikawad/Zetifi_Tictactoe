@@ -36,9 +36,9 @@ class TicTacToe:
         """
 
         if symbol == 'o':
-            player = 0
-        else:
             player = 1
+        else:
+            player = 0
 
         # pylint: disable=W0105
         '''
@@ -64,24 +64,20 @@ class TicTacToe:
             # diagonal /
             self.diagonal_counters[ANTI_DIAGONAL][player] += 1
 
-        # print('columncounters', self.columnCounters)
-        # print('rowcounters', self.rowCounters)
-        # print('diagonalCounters', self.diagonalCounters)
-
         result = self.who_wins(self.column_counters[column])
-        if result != 2:
+        if result != TicTacToe.STATES.DRAW.value:
             return result
 
         result = self.who_wins(self.row_counters[row])
-        if result != 2:
+        if result != TicTacToe.STATES.DRAW.value:
             return result
 
         result = self.who_wins(self.diagonal_counters[DIAGONAL])
-        if result != 2:
+        if result != TicTacToe.STATES.DRAW.value:
             return result
 
         result = self.who_wins(self.diagonal_counters[ANTI_DIAGONAL])
-        if result != 2:
+        if result != TicTacToe.STATES.DRAW.value:
             return result
 
         return result
@@ -92,20 +88,27 @@ class TicTacToe:
         :param arr: Array of column or row
         :return: The winner
         """
-        if arr[0] == 3:
-            return 4
-
         if arr[1] == 3:
-            return 3
-        return 2
+            return TicTacToe.STATES.NAUGHT_WON.value
+
+        if arr[0] == 3:
+            return TicTacToe.STATES.CROSS_WON.value
+
+        return TicTacToe.STATES.DRAW.value
 
 
 if __name__ == '__main__':
     obj = TicTacToe()
-    moves = [[0, 0, 'o'], [0, 2, 'x'], [1, 1, 'o'],
-             [0, 1, 'x'], [2, 2, 'o'], [1, 0, 'x'], [2, 1, 'o']]
+    moves = [[0, 0, 'x'], [0, 2, 'o'], [1, 1, 'x'],
+             [0, 1, 'o'], [2, 2, 'x'], [1, 0, 'o'], [2, 1, 'x']]
 
     for move in moves:
         print('Input', move)
-        param_1 = obj.place_marker(move[2], move[0], move[1])
-        print('Output', param_1)
+        result = obj.place_marker(move[2], move[0], move[1])
+        # print('Output', result)
+        if result == 4:
+            print('Naught Won!')
+        elif result == 3:
+            print('Cross Won!')
+        else:
+            print('Draw')

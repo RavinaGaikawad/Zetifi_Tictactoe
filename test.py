@@ -11,7 +11,7 @@ class TestTicTacToe(unittest.TestCase):
             result = t.place_marker(move[2], move[0], move[1])
             self.assertIsNotNone(result)
 
-        self.assertIs(result, 4)
+        self.assertIs(result, t.STATES.NAUGHT_WON.value)
 
     def test_who_wins(self):
         t = TicTacToe()
@@ -19,10 +19,10 @@ class TestTicTacToe(unittest.TestCase):
         testcase2 = [3, 0]
 
         result = t.who_wins(testcase1)
-        self.assertIs(result, 2)
+        self.assertIs(result, t.STATES.DRAW.value)
 
         result = t.who_wins(testcase2)
-        self.assertIs(result, 4)
+        self.assertIs(result, t.STATES.CROSS_WON.value)
 
 
 if __name__ == '__main__':
