@@ -1,5 +1,8 @@
 from enum import Enum
+from typing import List
+
 DIAGONAL, ANTI_DIAGONAL = 0, 1
+
 
 # noinspection PyPep8Naming
 class TicTacToe:
@@ -16,24 +19,33 @@ class TicTacToe:
         self.rowCounters = [[0, 0] for _ in range(3)]  # Space O(N)
         self.diagonalCounters = [[0, 0] for _ in range(2)]  # Space O(N)
 
-    def place_marker(self, symbol, row, column):
+    def place_marker(self, symbol: str, row: int, column: int) -> int:
+        """
+
+        :param symbol:
+        :param row:
+        :param column:
+        :return:
+        """
         if symbol == 'o':
             player = 0
         else:
             player = 1
 
-        '''
+        """
             For every column adding updating the score for each player.
             The score for o is updated at position 0 and for x the position is 1 in all lists            
-        '''
+        """
 
         self.columnCounters[column][player] += 1
         self.rowCounters[row][player] += 1
 
-        '''
-            We know it's a diagonal when column is same as row. If we consider the \ diagonal.
-            Whereas the / diagonal positions can be calculated by comparing row + column + 1 with 3 (Total number of rows)
-        '''
+        """
+        We know it's a diagonal when column is same as row. 
+        If we consider the r \ diagonal.
+        Whereas the / diagonal positions can be calculated by comparing 
+        row + column + 1 with 3 (Total number of rows)
+        """
         if row == column:
             # diagonal \
             self.diagonalCounters[DIAGONAL][player] += 1
@@ -63,7 +75,12 @@ class TicTacToe:
 
         return result
 
-    def who_wins(self, arr):  # Time O(1)
+    @staticmethod
+    def who_wins(arr: List) -> int:  # Time O(1)
+        """
+        :param arr:
+        :return:
+        """
         if arr[0] == 3:
             return 4
         elif arr[1] == 3:
@@ -79,4 +96,3 @@ if __name__ == '__main__':
         print('Input', move)
         param_1 = obj.place_marker(move[2], move[0], move[1])
         print('Output', param_1)
-
